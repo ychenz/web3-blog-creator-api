@@ -1,0 +1,6 @@
+node_modules
+blog_template
+package.json
+.env
+.*
+README.md
