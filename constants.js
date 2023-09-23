@@ -1,9 +1,15 @@
-const blogTablesContractAddress = "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853";
+const blogTablesContractAddress = "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9";
+
 const blogTablesAbi = [
     {
         inputs: [],
         stateMutability: "nonpayable",
         type: "constructor",
+    },
+    {
+        inputs: [],
+        name: "BlogCreator__SendMoreToSubscribe",
+        type: "error",
     },
     {
         inputs: [
@@ -17,16 +23,98 @@ const blogTablesAbi = [
         type: "error",
     },
     {
-        inputs: [
+        inputs: [],
+        name: "CreatorBlogTableName",
+        outputs: [
             {
-                internalType: "uint64",
-                name: "id",
-                type: "uint64",
+                internalType: "string",
+                name: "",
+                type: "string",
             },
         ],
-        name: "deleteVal",
-        outputs: [],
-        stateMutability: "nonpayable",
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "CreatorMembershipTiersTableName",
+        outputs: [
+            {
+                internalType: "string",
+                name: "",
+                type: "string",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "CreatorSiteTableName",
+        outputs: [
+            {
+                internalType: "string",
+                name: "",
+                type: "string",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "UserSiteSubscriptionsTableName",
+        outputs: [
+            {
+                internalType: "string",
+                name: "",
+                type: "string",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "uint32",
+                name: "",
+                type: "uint32",
+            },
+        ],
+        name: "creatorMembershipTierIdToTierMonthlyPrice",
+        outputs: [
+            {
+                internalType: "uint256",
+                name: "monthlyPrice",
+                type: "uint256",
+            },
+            {
+                internalType: "address",
+                name: "creatorAddress",
+                type: "address",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "uint32",
+                name: "tierId",
+                type: "uint32",
+            },
+        ],
+        name: "getMembershipTierInfor",
+        outputs: [
+            {
+                internalType: "string",
+                name: "",
+                type: "string",
+            },
+        ],
+        stateMutability: "view",
         type: "function",
     },
     {
@@ -134,6 +222,113 @@ const blogTablesAbi = [
             },
         ],
         stateMutability: "payable",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "i_owner",
+        outputs: [
+            {
+                internalType: "address",
+                name: "",
+                type: "address",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "string",
+                name: "blogCid",
+                type: "string",
+            },
+            {
+                internalType: "string",
+                name: "blogName",
+                type: "string",
+            },
+            {
+                internalType: "address",
+                name: "creatorAddress",
+                type: "address",
+            },
+            {
+                internalType: "uint32",
+                name: "creatorSiteId",
+                type: "uint32",
+            },
+        ],
+        name: "insertFreeBlogIntoCreatorBlogTable",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "string",
+                name: "blogCid",
+                type: "string",
+            },
+            {
+                internalType: "string",
+                name: "blogName",
+                type: "string",
+            },
+            {
+                internalType: "address",
+                name: "creatorAddress",
+                type: "address",
+            },
+            {
+                internalType: "uint32",
+                name: "creatorSiteId",
+                type: "uint32",
+            },
+            {
+                internalType: "uint32",
+                name: "creatorMembershipTierId",
+                type: "uint32",
+            },
+        ],
+        name: "insertIntoCreatorBlogTable",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "uint32",
+                name: "creatorSiteId",
+                type: "uint32",
+            },
+            {
+                internalType: "address",
+                name: "creatorAddress",
+                type: "address",
+            },
+            {
+                internalType: "string",
+                name: "tierName",
+                type: "string",
+            },
+            {
+                internalType: "string",
+                name: "tierDescription",
+                type: "string",
+            },
+            {
+                internalType: "uint256",
+                name: "tierMonthlyPrice",
+                type: "uint256",
+            },
+        ],
+        name: "insertIntoCreatorMembershipTiersTable",
+        outputs: [],
+        stateMutability: "nonpayable",
         type: "function",
     },
     {
@@ -154,20 +349,7 @@ const blogTablesAbi = [
                 type: "address",
             },
         ],
-        name: "insertIntoBlogSiteTable",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        inputs: [
-            {
-                internalType: "string",
-                name: "val",
-                type: "string",
-            },
-        ],
-        name: "insertVal",
+        name: "insertIntoCreatorSiteTable",
         outputs: [],
         stateMutability: "nonpayable",
         type: "function",
@@ -207,34 +389,44 @@ const blogTablesAbi = [
         type: "function",
     },
     {
-        inputs: [],
-        name: "tableName",
-        outputs: [
+        inputs: [
             {
-                internalType: "string",
-                name: "",
-                type: "string",
+                internalType: "uint32",
+                name: "tierId",
+                type: "uint32",
+            },
+            {
+                internalType: "uint256",
+                name: "monthlyPrice",
+                type: "uint256",
+            },
+            {
+                internalType: "address",
+                name: "creatorAddress",
+                type: "address",
             },
         ],
-        stateMutability: "view",
+        name: "registerMembershipTier",
+        outputs: [],
+        stateMutability: "nonpayable",
         type: "function",
     },
     {
         inputs: [
             {
-                internalType: "uint64",
-                name: "id",
-                type: "uint64",
+                internalType: "address",
+                name: "userAddress",
+                type: "address",
             },
             {
-                internalType: "string",
-                name: "val",
-                type: "string",
+                internalType: "uint32",
+                name: "membershipTierId",
+                type: "uint32",
             },
         ],
-        name: "updateVal",
+        name: "subscribe",
         outputs: [],
-        stateMutability: "nonpayable",
+        stateMutability: "payable",
         type: "function",
     },
 ];
