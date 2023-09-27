@@ -1,4 +1,5 @@
-const blogTablesContractAddress = "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9";
+// const blogTablesContractAddress = "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9";
+const blogTablesContractAddress = "0xC6c5Ab5039373b0CBa7d0116d9ba7fb9831C3f42"; // filecoin cali testnet contract address
 
 const blogTablesAbi = [
     {

@@ -21,7 +21,11 @@ const listenForTxMine = (txResponse, provider) => {
  * @returns {ethers.Wallet} signer
  */
 const getSigner = () => {
-    const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545");
+    const provider = new ethers.providers.JsonRpcProvider(
+        process.env.NETWORK === "local"
+            ? "http://127.0.0.1:8545"
+            : "https://api.calibration.node.glif.io/rpc/v1" // UsingFilecoin calibration testnet if not local
+    );
     const signer = new ethers.Wallet(process.env.OWNER_PRIVATE_KEY, provider);
 
     return signer;
