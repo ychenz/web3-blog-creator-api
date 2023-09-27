@@ -108,76 +108,75 @@ app.post("/api/blog", (request, response) => {
     };
 
     // Uploading logics
-    // if (false) {
     if (creatorMembershipTierId) {
-        // getLighthouseSignedMessage()
-        //     .then((signedMessage) => {
-        //         console.log("**** Uploading encrypted blog to Lighthouse ...");
-        //         console.log("ownerAddress (Public Key):", ownerAddress);
-        //         console.log("signedMessage:", signedMessage);
+        getLighthouseSignedMessage()
+            .then((signedMessage) => {
+                console.log("**** Uploading encrypted blog to Lighthouse ...");
+                console.log("ownerAddress (Public Key):", ownerAddress);
+                console.log("signedMessage:", signedMessage);
 
-        //         lighthouse
-        //             .textUploadEncrypted(
-        //                 blogContent,
-        //                 LIGHTHOUSE_API_KEY,
-        //                 ownerAddress,
-        //                 signedMessage,
-        //                 // Use .md filename in the future, .txt for now for simplicity
-        //                 `${blogName}.txt`
-        //             )
-        //             .then(onUploadedCallback)
-        //             .catch(onErrorCallback);
-        //     })
-        //     .catch(onErrorCallback);
+                lighthouse
+                    .textUploadEncrypted(
+                        blogContent,
+                        LIGHTHOUSE_API_KEY,
+                        ownerAddress,
+                        signedMessage,
+                        // Use .md filename in the future, .txt for now for simplicity
+                        `${blogName}.txt`
+                    )
+                    .then(onUploadedCallback)
+                    .catch(onErrorCallback);
+            })
+            .catch(onErrorCallback);
 
-        //Mock paid blog
-        let blogCid = "QmWTipWQtDwwZ2VTSpDTLuiwEemnnS3H3AhGbHcHYeqBCu";
-        db.insertNewBlogToDB({
-            blogCid,
-            blogName,
-            creatorAddress,
-            creatorSiteId,
-            creatorMembershipTierId: creatorMembershipTierId || null,
-        }).then(() => {
-            response.send({
-                success: "true",
-                data: {
-                    blogCid,
-                    blogName,
-                    creatorAddress,
-                    creatorSiteId,
-                    creatorMembershipTierId: creatorMembershipTierId,
-                },
-            });
-        });
+        //Test paid blog
+        // let blogCid = "QmWTipWQtDwwZ2VTSpDTLuiwEemnnS3H3AhGbHcHYeqBCu";
+        // db.insertNewBlogToDB({
+        //     blogCid,
+        //     blogName,
+        //     creatorAddress,
+        //     creatorSiteId,
+        //     creatorMembershipTierId: creatorMembershipTierId || null,
+        // }).then(() => {
+        //     response.send({
+        //         success: "true",
+        //         data: {
+        //             blogCid,
+        //             blogName,
+        //             creatorAddress,
+        //             creatorSiteId,
+        //             creatorMembershipTierId: creatorMembershipTierId,
+        //         },
+        //     });
+        // });
     } else {
         console.log("**** Uploading free blog to Lighthouse ...");
         console.log(blogContent, LIGHTHOUSE_API_KEY, blogName);
-        // lighthouse
-        //     .uploadText(blogContent, LIGHTHOUSE_API_KEY, blogName)
-        //     .then(onUploadedCallback)
-        //     .catch(onErrorCallback);
+        lighthouse
+            .uploadText(blogContent, LIGHTHOUSE_API_KEY, blogName)
+            .then(onUploadedCallback)
+            .catch(onErrorCallback);
 
-        //Mock free blog
-        let blogCid = "Qmd5CCwgjy4jCWntmuB3iaLJHoUDJqW8qjSKTAqHPY1E3h";
-        db.insertNewBlogToDB({
-            blogCid,
-            blogName,
-            creatorAddress,
-            creatorSiteId,
-            creatorMembershipTierId: creatorMembershipTierId || null,
-        }).then(() => {
-            response.send({
-                success: "true",
-                data: {
-                    blogCid,
-                    blogName,
-                    creatorAddress,
-                    creatorSiteId,
-                    creatorMembershipTierId: creatorMembershipTierId,
-                },
-            });
-        });
+        //Test free blog
+        // let blogCid = "Qmd5CCwgjy4jCWntmuB3iaLJHoUDJqW8qjSKTAqHPY1E3h";
+        // db.insertNewBlogToDB({
+        //     blogCid,
+        //     blogName,
+        //     creatorAddress,
+        //     creatorSiteId,
+        //     creatorMembershipTierId: creatorMembershipTierId || null,
+        // }).then(() => {
+        //     response.send({
+        //         success: "true",
+        //         data: {
+        //             blogCid,
+        //             blogName,
+        //             creatorAddress,
+        //             creatorSiteId,
+        //             creatorMembershipTierId: creatorMembershipTierId,
+        //         },
+        //     });
+        // });
     }
 });
 
